@@ -1,26 +1,26 @@
+"use client";
+
 import { workouts } from "@/data/workouts";
 import Link from "next/link";
+import { Container } from "../ui/Container/Container";
+import { Header } from "../ui/Header/Header";
 import styles from "./WorkoutDashboard.module.css";
 
 export function WorkoutDashboard() {
   return (
-    <div className={styles.container}>
-      <div className={styles.header}>
-        <h1 className={styles.title}>Gerenciar Treinos</h1>
-      </div>
+    <Container>
+      <Header title="Gerenciar Treinos" />
 
       <div className={styles.card}>
-        <div className={styles.section}>
-          <h2 className={styles.sectionTitle}>Criar Novo Treino</h2>
-          <button className={`${styles.button} ${styles.buttonGreen}`}>
-            <span className={styles.buttonText}>Adicionar Treino</span>
-          </button>
-        </div>
+        <h2 className={styles.sectionTitle}>Seus Treinos</h2>
+        <div className={styles.workoutList}>
+          {workouts.map((workout) => {
+            const slugWorkout = workout.name
+              .toLowerCase()
+              .replace(/[^\w\s-]/g, "")
+              .replace(/\s+/g, "-");
 
-        <div>
-          <h2 className={styles.sectionTitle}>Seus Treinos</h2>
-          <div className={styles.workoutList}>
-            {workouts.map((workout) => (
+            return (
               <div key={workout.name} className={styles.workoutItem}>
                 <div className={styles.workoutHeader}>
                   <h3 className={styles.workoutName}>{workout.name}</h3>
@@ -44,9 +44,17 @@ export function WorkoutDashboard() {
                     </div>
                   ))}
                 </div>
+                <Link
+                  href={`/dashboard/configure/${slugWorkout}`}
+                  className={`${styles.button} ${styles.selectButton}`}
+                >
+                  <span className={styles.buttonText}>
+                    Configurar este treino
+                  </span>
+                </Link>
               </div>
-            ))}
-          </div>
+            );
+          })}
         </div>
       </div>
 
@@ -55,6 +63,6 @@ export function WorkoutDashboard() {
           <span>Voltar ao Treino</span>
         </Link>
       </div>
-    </div>
+    </Container>
   );
 }

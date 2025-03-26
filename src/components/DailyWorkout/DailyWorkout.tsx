@@ -1,10 +1,12 @@
 import Link from "next/link";
+import { Container } from "../ui/Container/Container";
+import { Header } from "../ui/Header/Header";
 import styles from "./DailyWorkout.module.css";
 
 export function DailyWorkout() {
   return (
-    <div className={styles.container}>
-      <h1 className={styles.title}>Treino de Hoje</h1>
+    <Container>
+      <Header title="Treino de Hoje" />
 
       <Link href="/dashboard" className={styles.manageButton}>
         Gerenciar Treinos
@@ -23,6 +25,6 @@ export function DailyWorkout() {
         <button className={styles.skipButton}>Pular Hoje</button>
         <button className={styles.startButton}>Começar Treino</button>
       </div>
-    </div>
+    </Container>
   );
 }

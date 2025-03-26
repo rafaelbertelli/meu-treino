@@ -15,6 +15,7 @@ export interface WorkoutGroup {
 }
 
 export interface Workout {
+  id: number;
   name: string;
   creation_date: string;
   workout: WorkoutGroup[];
@@ -22,6 +23,7 @@ export interface Workout {
 
 export const workouts: Workout[] = [
   {
+    id: 1,
     name: "Treino UP-SET",
     creation_date: "2024-03-26",
     workout: [
