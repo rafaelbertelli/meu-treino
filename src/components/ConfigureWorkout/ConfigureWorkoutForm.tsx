@@ -2,6 +2,9 @@
 
 import { workouts } from "@/data/workouts";
 import Link from "next/link";
+
+import { Button } from "../ui/button/Button/Button";
+import { ButtonGroup } from "../ui/button/ButtonGroup/ButtonGroup";
 import { Container } from "../ui/Container/Container";
 import { Header } from "../ui/Header/Header";
 import styles from "./ConfigureWorkoutForm.module.css";
@@ -26,9 +29,11 @@ export function ConfigureWorkoutForm({
     return (
       <Container>
         <Header title="Treino não encontrado" />
-        <Link href="/dashboard" className={styles.backLink}>
-          Voltar para Dashboard
-        </Link>
+        <ButtonGroup>
+          <Button variant="primary">
+            <Link href="/dashboard">Voltar para Dashboard</Link>
+          </Button>
+        </ButtonGroup>
       </Container>
     );
   }
@@ -71,17 +76,19 @@ export function ConfigureWorkoutForm({
             />
           </div>
 
-          <button type="submit" className={styles.submitButton}>
-            Salvar Configuração
-          </button>
+          <ButtonGroup>
+            <Button type="submit" variant="primary">
+              Salvar Configuração
+            </Button>
+          </ButtonGroup>
         </form>
       </div>
 
-      <div className={styles.backButton}>
-        <Link href="/dashboard" className={styles.backLink}>
-          Voltar para Dashboard
-        </Link>
-      </div>
+      <ButtonGroup>
+        <Button variant="lightGray">
+          <Link href="/dashboard">Voltar para Dashboard</Link>
+        </Button>
+      </ButtonGroup>
     </Container>
   );
 }

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { Button } from "../ui/button/Button/Button";
+import { ButtonGroup } from "../ui/button/ButtonGroup/ButtonGroup";
 import { Container } from "../ui/Container/Container";
 import { Header } from "../ui/Header/Header";
 import styles from "./DailyWorkout.module.css";
@@ -21,10 +23,10 @@ export function DailyWorkout() {
         </div>
       </div>
 
-      <div className={styles.actionButtons}>
-        <button className={styles.skipButton}>Pular Hoje</button>
-        <button className={styles.startButton}>Começar Treino</button>
-      </div>
+      <ButtonGroup fixed>
+        <Button variant="lightGray">Pular Hoje</Button>
+        <Button variant="green">Começar</Button>
+      </ButtonGroup>
     </Container>
   );
 }

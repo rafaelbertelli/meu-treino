@@ -2,6 +2,9 @@
 
 import { workouts } from "@/data/workouts";
 import Link from "next/link";
+
+import { Button } from "../ui/button/Button/Button";
+import { ButtonGroup } from "../ui/button/ButtonGroup/ButtonGroup";
 import { Container } from "../ui/Container/Container";
 import { Header } from "../ui/Header/Header";
 import styles from "./WorkoutDashboard.module.css";
@@ -58,11 +61,11 @@ export function WorkoutDashboard() {
         </div>
       </div>
 
-      <div className={styles.backButton}>
-        <Link href="/" className={styles.backButtonLink}>
-          <span>Voltar ao Treino</span>
-        </Link>
-      </div>
+      <ButtonGroup>
+        <Button variant="lightGray">
+          <Link href="/">Home</Link>
+        </Button>
+      </ButtonGroup>
     </Container>
   );
 }
