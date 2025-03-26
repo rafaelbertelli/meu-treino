@@ -1,3 +1,4 @@
+import { workouts } from "@/data/workouts";
 import Link from "next/link";
 import styles from "./WorkoutDashboard.module.css";
 
@@ -18,10 +19,34 @@ export function WorkoutDashboard() {
 
         <div>
           <h2 className={styles.sectionTitle}>Seus Treinos</h2>
-          {/* Aqui será implementada a lista de treinos cadastrados */}
-          <p className={styles.placeholderText}>
-            Lista de treinos será implementada em breve...
-          </p>
+          <div className={styles.workoutList}>
+            {workouts.map((workout) => (
+              <div key={workout.name} className={styles.workoutItem}>
+                <div className={styles.workoutHeader}>
+                  <h3 className={styles.workoutName}>{workout.name}</h3>
+                  <span className={styles.workoutDate}>
+                    Criado em:{" "}
+                    {new Date(workout.creation_date).toLocaleDateString(
+                      "pt-BR"
+                    )}
+                  </span>
+                </div>
+                <div className={styles.workoutGroups}>
+                  {workout.workout.map((group) => (
+                    <div key={group.name} className={styles.workoutGroup}>
+                      <strong>{group.name}</strong>
+                      <span className={styles.workoutDescription}>
+                        {group.description}
+                      </span>
+                      <span className={styles.workoutDuration}>
+                        Duração: {group.estimated_duration}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 
