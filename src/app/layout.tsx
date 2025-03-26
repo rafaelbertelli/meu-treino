@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
+import styles from "./layout.module.css";
 
 const roboto = Roboto({
   weight: ["400", "700"],
@@ -10,7 +11,7 @@ const roboto = Roboto({
 
 export const metadata: Metadata = {
   title: "Meu Treino",
-  description: "Meu Treino",
+  description: "Aplicativo para gerenciamento de treinos",
 };
 
 export default function RootLayout({
@@ -20,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${roboto.className} antialiased`}>{children}</body>
+      <body className={`${roboto.className} antialiased`}>
+        <main className={styles.container}>{children}</main>
+      </body>
     </html>
   );
 }

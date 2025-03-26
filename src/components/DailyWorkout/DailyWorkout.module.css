@@ -1,0 +1,99 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.manageButton {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  background-color: #2563eb;
+  color: white;
+  text-align: center;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.manageButton:hover {
+  background-color: #1d4ed8;
+}
+
+.workoutCard {
+  background-color: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+.subtitle {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.content {
+  padding: 1rem;
+  background-color: #f3f4f6;
+  border-radius: 0.5rem;
+}
+
+.placeholder {
+  color: #6b7280;
+  text-align: center;
+}
+
+.actionButtons {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 1rem;
+  display: flex;
+  gap: 0.75rem;
+  background-color: white;
+  border-top: 1px solid #e5e7eb;
+}
+
+.actionButtons button {
+  flex: 1;
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.skipButton {
+  background-color: #e5e7eb;
+  color: #374151;
+}
+
+.skipButton:hover {
+  background-color: #d1d5db;
+}
+
+.startButton {
+  background-color: #059669;
+  color: white;
+}
+
+.startButton:hover {
+  background-color: #047857;
+}
+
+@media (min-width: 640px) {
+  .actionButtons {
+    position: static;
+    border-top: none;
+    padding: 0;
+    margin-top: 1rem;
+  }
+}
