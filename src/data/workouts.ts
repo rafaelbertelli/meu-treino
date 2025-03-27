@@ -1,36 +1,15 @@
-export interface Exercise {
-  name: string;
-  sets: number;
-  reps: number;
-  interval?: string;
-  group?: string;
-  observations?: string;
-}
-
-export interface WorkoutGroup {
-  name: string;
-  description: string;
-  exercises: Exercise[];
-  estimated_duration: string;
-}
-
-export interface Workout {
-  id: number;
-  name: string;
-  creation_date: string;
-  workout: WorkoutGroup[];
-}
+import { Workout } from "@/types/workout.types";
 
 export const workouts: Workout[] = [
   {
     id: 1,
     name: "Treino UP-SET",
-    creation_date: "2024-03-26",
+    creationDate: "2025-03-26T00:00:00.000Z",
     workout: [
       {
         name: "Série A",
         description: "Treino de Peito, Tríceps e Abdômen",
-        estimated_duration: "45:00",
+        estimatedDuration: "45:00",
         exercises: [
           {
             name: "Supino Reto - Barra",
@@ -96,7 +75,7 @@ export const workouts: Workout[] = [
       {
         name: "Série B",
         description: "Treino de Costas, Bíceps e Panturrilha",
-        estimated_duration: "42:00",
+        estimatedDuration: "42:00",
         exercises: [
           {
             name: "Puxador Frente - Peg. Prona",
@@ -163,7 +142,7 @@ export const workouts: Workout[] = [
       {
         name: "Série C",
         description: "Treino de Pernas, Ombro e Trapézio",
-        estimated_duration: "48:00",
+        estimatedDuration: "48:00",
         exercises: [
           {
             name: "Agachamento Barra Livre",
@@ -233,5 +212,10 @@ export const workouts: Workout[] = [
         ],
       },
     ],
+    workoutConfig: {
+      sessions: "",
+      startDate: "",
+      notes: "",
+    },
   },
 ];

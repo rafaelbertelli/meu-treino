@@ -3,6 +3,7 @@
 import { workouts } from "@/data/workouts";
 import Link from "next/link";
 
+import { formatDateToLocaleBrazil } from "@/helpers/date";
 import { Button } from "../ui/button/Button/Button";
 import { ButtonGroup } from "../ui/button/ButtonGroup/ButtonGroup";
 import { Container } from "../ui/Container/Container";
@@ -28,10 +29,7 @@ export function WorkoutDashboard() {
                 <div className={styles.workoutHeader}>
                   <h3 className={styles.workoutName}>{workout.name}</h3>
                   <span className={styles.workoutDate}>
-                    Criado em:{" "}
-                    {new Date(workout.creation_date).toLocaleDateString(
-                      "pt-BR"
-                    )}
+                    Criado em: {formatDateToLocaleBrazil(workout.creationDate)}
                   </span>
                 </div>
                 <div className={styles.workoutGroups}>
@@ -42,7 +40,7 @@ export function WorkoutDashboard() {
                         {group.description}
                       </span>
                       <span className={styles.workoutDuration}>
-                        Duração: {group.estimated_duration}
+                        Duração: {group.estimatedDuration}
                       </span>
                     </div>
                   ))}
