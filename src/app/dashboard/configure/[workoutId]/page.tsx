@@ -4,6 +4,6 @@ import { ConfigureWorkoutForm } from "@/components/ConfigureWorkout/ConfigureWor
 import { useParams } from "next/navigation";
 
 export default function ConfigureWorkout() {
-  const { workoutSlug } = useParams();
-  return <ConfigureWorkoutForm workoutSlug={workoutSlug as string} />;
+  const { workoutId } = useParams();
+  return <ConfigureWorkoutForm workoutId={workoutId as string} />;
 }

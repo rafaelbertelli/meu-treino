@@ -1,4 +1,4 @@
-import { Workout } from "@/types/workout.types";
+import { WorkoutStoreItem } from "@/types/workout.types";
 import { STORAGE_KEYS } from "./constants";
 import { storage } from "./storage";
 
@@ -6,14 +6,14 @@ export const workoutsStore = {
   /**
    * Get all stored workouts
    */
-  getAll: (): Workout[] => {
-    return storage.get<Workout[]>(STORAGE_KEYS.WORKOUTS) || [];
+  getAll: (): WorkoutStoreItem[] => {
+    return storage.get<WorkoutStoreItem[]>(STORAGE_KEYS.WORKOUTS) || [];
   },
 
   /**
    * Get a specific workout by id
    */
-  getById: (id: number): Workout | null => {
+  getById: (id: number): WorkoutStoreItem | null => {
     const workouts = workoutsStore.getAll();
     return workouts.find((workout) => workout.id === id) || null;
   },
@@ -21,7 +21,7 @@ export const workoutsStore = {
   /**
    * Save or update a workout
    */
-  save: (workout: Workout): void => {
+  save: (workout: WorkoutStoreItem): void => {
     const workouts = workoutsStore.getAll();
     const existingIndex = workouts.findIndex((w) => w.id === workout.id);
 

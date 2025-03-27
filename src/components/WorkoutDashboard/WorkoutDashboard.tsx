@@ -3,7 +3,7 @@
 import { workouts } from "@/data/workouts";
 import Link from "next/link";
 
-import { formatDateToLocaleBrazil } from "@/helpers/date";
+import { formatDateToLocaleBrazil } from "@/lib/date";
 import { Button } from "../ui/button/Button/Button";
 import { ButtonGroup } from "../ui/button/ButtonGroup/ButtonGroup";
 import { Container } from "../ui/Container/Container";
@@ -19,11 +19,6 @@ export function WorkoutDashboard() {
         <h2 className={styles.sectionTitle}>Seus Treinos</h2>
         <div className={styles.workoutList}>
           {workouts.map((workout) => {
-            const slugWorkout = workout.name
-              .toLowerCase()
-              .replace(/[^\w\s-]/g, "")
-              .replace(/\s+/g, "-");
-
             return (
               <div key={workout.name} className={styles.workoutItem}>
                 <div className={styles.workoutHeader}>
@@ -46,7 +41,7 @@ export function WorkoutDashboard() {
                   ))}
                 </div>
                 <Link
-                  href={`/dashboard/configure/${slugWorkout}`}
+                  href={`/dashboard/configure/${workout.id}`}
                   className={`${styles.button} ${styles.selectButton}`}
                 >
                   <span className={styles.buttonText}>

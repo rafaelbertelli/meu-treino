@@ -21,9 +21,17 @@ export interface WorkoutConfig {
 }
 
 export interface Workout {
-  id: number;
+  id: string;
   name: string;
   creationDate: string;
   workout: WorkoutGroup[];
   workoutConfig: WorkoutConfig;
+}
+
+export interface WorkoutStoreItem {
+  id: string;
+  workoutId: string;
+  workoutConfig: WorkoutConfig;
+  isActive: boolean;
+  isCompleted: boolean;
 }

@@ -4,29 +4,21 @@ import { workouts } from "@/data/workouts";
 import Link from "next/link";
 import { FormEvent } from "react";
 
-import { formatDateToInputValue, formatDateToISOString } from "@/helpers/date";
+import { formatDateToInputValue, formatDateToISOString } from "@/lib/date";
+import { generateId } from "@/lib/id/id";
 import { workoutsStore } from "@/store/workouts";
 import { Button } from "../ui/button/Button/Button";
 import { ButtonGroup } from "../ui/button/ButtonGroup/ButtonGroup";
 import { Container } from "../ui/Container/Container";
 import { Header } from "../ui/Header/Header";
 import styles from "./ConfigureWorkoutForm.module.css";
-
 interface ConfigureWorkoutFormProps {
-  workoutSlug: string;
+  workoutId: string;
 }
 
-export function ConfigureWorkoutForm({
-  workoutSlug,
-}: ConfigureWorkoutFormProps) {
-  // Find workout based on slug
-  const workout = workouts.find(
-    (w) =>
-      w.name
-        .toLowerCase()
-        .replace(/[^\w\s-]/g, "")
-        .replace(/\s+/g, "-") === workoutSlug
-  );
+export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
+  // Find workout based on id
+  const workout = workouts.find((w) => w.id === workoutId);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -42,16 +34,17 @@ export function ConfigureWorkoutForm({
 
     if (!workout) return;
 
-    const payload = {
-      ...workout,
-      workoutConfig: formValues,
-    };
-
     // Save workout to localStorage
-    workoutsStore.save(payload);
+    workoutsStore.save({
+      id: generateId(),
+      workoutId: workoutId,
+      workoutConfig: formValues,
+      isActive: true,
+      isCompleted: false,
+    });
 
     // Redirect to dashboard or show success message
-    console.log("Workout saved successfully:", payload);
+    window.location.href = `/dashboard?success=true&message=Treino configurado com sucesso!`;
   };
 
   if (!workout) {
@@ -60,14 +53,20 @@ export function ConfigureWorkoutForm({
         <Header title="Treino não encontrado" />
         <ButtonGroup>
           <Button variant="primary">
-            <Link href="/dashboard">Voltar para Dashboard</Link>
+            <Link
+              href={{
+                pathname: "/dashboard",
+                query: { error: "Treino não encontrado" },
+              }}
+            >
+              Voltar para Dashboard
+            </Link>
           </Button>
         </ButtonGroup>
       </Container>
     );
   }
 
-  console.log(workout.workoutConfig.startDate);
   return (
     <Container>
       <Header title="Configurar Treino" subtitle={workout.name} />
@@ -130,7 +129,15 @@ export function ConfigureWorkoutForm({
 
       <ButtonGroup>
         <Button variant="lightGray">
-          <Link href="/dashboard">Voltar para Dashboard</Link>
+          <Link
+            href="/dashboard"
+            prefetch={false}
+            replace={true}
+            scroll={false}
+            className={styles.link}
+          >
+            Voltar para Dashboard
+          </Link>
         </Button>
       </ButtonGroup>
     </Container>

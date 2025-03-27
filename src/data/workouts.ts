@@ -2,7 +2,7 @@ import { Workout } from "@/types/workout.types";
 
 export const workouts: Workout[] = [
   {
-    id: 1,
+    id: "1",
     name: "Treino UP-SET",
     creationDate: "2025-03-26T00:00:00.000Z",
     workout: [
