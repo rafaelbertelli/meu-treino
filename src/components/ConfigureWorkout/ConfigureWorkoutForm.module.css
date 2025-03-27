@@ -1,7 +1,7 @@
 .card {
   background: white;
   border-radius: 8px;
-  padding: 2rem;
+  padding: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
@@ -40,4 +40,182 @@
 .textarea {
   resize: vertical;
   min-height: 100px;
+}
+
+.workoutPreview {
+  margin-top: 2rem;
+  background-color: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.workoutPreviewTitle {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #1a1a1a;
+  padding: 1rem;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.workoutPreviewTitle::before {
+  content: "";
+  display: block;
+  width: 4px;
+  height: 1.125rem;
+  background-color: #3b82f6;
+  border-radius: 2px;
+}
+
+.workoutGroup {
+  margin-bottom: 1rem;
+}
+
+.workoutGroup:last-child {
+  margin-bottom: 0;
+}
+
+.groupTitle {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #374151;
+  padding: 0.75rem 1rem;
+  background-color: #f8f9fa;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.groupTitle::before {
+  content: "";
+  display: block;
+  width: 3px;
+  height: 1rem;
+  background-color: #6366f1;
+  border-radius: 2px;
+  opacity: 0.8;
+}
+
+.exerciseList {
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+}
+
+.exercise {
+  background-color: white;
+}
+
+.exerciseContent {
+  padding: 1.25rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.exerciseNameWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  position: relative;
+  padding-left: 0.75rem;
+}
+
+.exerciseNameWrapper::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 4px;
+  width: 2px;
+  height: calc(100% - 8px);
+  background-color: #9ca3af;
+  border-radius: 1px;
+  opacity: 0.6;
+}
+
+.exerciseName {
+  font-weight: 600;
+  color: #111827;
+  font-size: 1rem;
+}
+
+.exerciseGroup {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 400;
+}
+
+.exerciseMetrics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  background-color: #f9fafb;
+  padding: 0.75rem;
+  border-radius: 8px;
+}
+
+.metricItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background-color: transparent;
+  padding: 0;
+}
+
+.metricLabel {
+  font-size: 0.75rem;
+  color: #6b7280;
+  font-weight: 500;
+  letter-spacing: 0.025em;
+}
+
+.metricValue {
+  font-weight: 600;
+  color: #111827;
+  font-size: 1rem;
+  margin-top: 0.25rem;
+}
+
+.exerciseObservations {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  color: #4b5563;
+  line-height: 1.4;
+  padding: 0.5rem 0 0 0;
+  border: none;
+  background-color: transparent;
+  margin: 0;
+}
+
+.infoIcon {
+  color: #3b82f6;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.observationText {
+  flex: 1;
+  font-weight: 400;
+  color: #6b7280;
+}
+
+.exerciseDivider {
+  height: 1px;
+  background-color: #e5e7eb;
+  margin: 0;
+}
+
+.seriesDivider {
+  height: 12px;
+  background-color: #f3f4f6;
+  margin: 0;
 }
