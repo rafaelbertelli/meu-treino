@@ -15,7 +15,7 @@ export interface WorkoutGroup {
 }
 
 export interface WorkoutConfig {
-  sessions: string;
+  sessions: number;
   startDate: string;
   notes: string;
 }
@@ -34,4 +34,5 @@ export interface WorkoutStoreItem {
   workoutConfig: WorkoutConfig;
   isActive: boolean;
   isCompleted: boolean;
+  currentSession: number;
 }

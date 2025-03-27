@@ -33,7 +33,7 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
     const formData = new FormData(form);
 
     const formValues = {
-      sessions: formData.get("sessions") as string,
+      sessions: Number(formData.get("sessions")),
       startDate: formatDateToISOString(formData.get("startDate") as string),
       notes: formData.get("notes") as string,
     };
@@ -42,11 +42,12 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
 
     // Save workout to localStorage
     workoutsStore.save({
-      id: workoutId,
+      id: workoutId, // TODO: Add current workout id
       workoutId: workoutId,
       workoutConfig: formValues,
       isActive: true,
       isCompleted: false,
+      currentSession: 0, // TODO: Add current session
     });
 
     // Redirect to dashboard or show success message
