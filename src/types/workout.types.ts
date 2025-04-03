@@ -1,9 +1,9 @@
 export interface Exercise {
   name: string;
-  sets: number;
-  reps: number;
-  interval?: string;
-  group?: string;
+  sets: string;
+  reps: string;
+  interval: string;
+  group: string;
   observations?: string;
 }
 
@@ -15,7 +15,7 @@ export interface WorkoutGroup {
 }
 
 export interface WorkoutConfig {
-  sessions: number;
+  sessions: number | null;
   startDate: string;
   notes: string;
 }
@@ -24,7 +24,7 @@ export interface Workout {
   id: string;
   name: string;
   creationDate: string;
-  workout: WorkoutGroup[];
+  workoutGroup: WorkoutGroup[];
   workoutConfig: WorkoutConfig;
 }
 

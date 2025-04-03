@@ -9,11 +9,18 @@ import {
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
-} from "@/components/ui/accordion";
+} from "@/components/ui/Accordion/accordion";
 import { formatDateToInputValue, formatDateToISOString } from "@/lib/date";
 import { workoutsStore } from "@/store/workouts";
 import { Button } from "../ui/button/Button/Button";
 import { ButtonGroup } from "../ui/button/ButtonGroup/ButtonGroup";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../ui/Card/card";
 import { Container } from "../ui/Container/Container";
 import { Header } from "../ui/Header/Header";
 import styles from "./ConfigureWorkoutForm.module.css";
@@ -39,6 +46,17 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
     };
 
     if (!workout) return;
+
+    // verificar se o treino está ativos no localStorage
+    const activeWorkout = workoutsStore
+      .getAll()
+      .find((w) => w.workoutId === workoutId && w.isActive);
+    if (activeWorkout) {
+      console.log("treino ativo");
+      // se tiver treino ativo, subir uma modal de confirmação
+      // se confirmar, atualizar o treino
+      // se não confirmar, cancelar a operação
+    }
 
     // Save workout to localStorage
     workoutsStore.save({
@@ -75,10 +93,13 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
   }
 
   return (
-    <Container>
-      <Header title="Configurar Treino" subtitle={workout.name} />
+    <Card>
+      <CardHeader>
+        <CardTitle>Configurar Treino</CardTitle>
+        <CardDescription>{workout.name}</CardDescription>
+      </CardHeader>
 
-      <div className={styles.card}>
+      <CardContent>
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
             <label htmlFor="sessions" className={styles.label}>
@@ -134,7 +155,7 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
               collapsible
               className={styles.workoutAccordion}
             >
-              {workout.workout.map((group, groupIndex) => (
+              {workout.workoutGroup.map((group, groupIndex) => (
                 <AccordionItem
                   key={groupIndex}
                   value={`group-${groupIndex}`}
@@ -227,11 +248,11 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
 
           <ButtonGroup>
             <Button type="submit" variant="primary">
-              Salvar Configuração
+              Usar este treino
             </Button>
           </ButtonGroup>
         </form>
-      </div>
+      </CardContent>
 
       <ButtonGroup>
         <Button variant="lightGray">
@@ -246,6 +267,6 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
           </Link>
         </Button>
       </ButtonGroup>
-    </Container>
+    </Card>
   );
 }

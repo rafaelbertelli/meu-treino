@@ -1,67 +1,3 @@
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 1rem;
-}
-
-.title {
-  font-size: 1.875rem;
-  font-weight: 700;
-}
-
-.card {
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  padding: 1rem;
-}
-
-.section {
-  margin-bottom: 2rem;
-}
-
-.sectionTitle {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-.button {
-  display: block;
-  width: 100%;
-  text-align: center;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  transition: background-color 0.2s;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  font-weight: 500;
-}
-
-.buttonGreen {
-  background-color: #059669;
-  color: white;
-}
-
-.buttonGreen:hover {
-  background-color: #047857;
-}
-
-.buttonText {
-  margin-left: 0.5rem;
-}
-
-.placeholderText {
-  color: #4b5563;
-}
-
 .workoutList {
   display: flex;
   flex-direction: column;
@@ -75,15 +11,22 @@
   transition: all 0.2s;
 }
 
+.activeWorkout {
+  border-color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.05);
+}
+
 .workoutItem:hover {
   border-color: #d1d5db;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
+.activeWorkout:hover {
+  border-color: #2563eb;
+  box-shadow: 0 2px 8px -2px rgba(59, 130, 246, 0.2);
+}
+
 .workoutHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   margin-bottom: 1rem;
 }
 
@@ -94,6 +37,17 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.activeTag {
+  display: inline-flex;
+  align-items: center;
+  background-color: #3b82f6;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 500;
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
 }
 
 .workoutDate {
@@ -125,63 +79,4 @@
   font-size: 0.875rem;
   color: #059669;
   font-weight: 500;
-}
-
-.backButton {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1rem;
-  display: flex;
-  gap: 0.75rem;
-  background-color: white;
-  border-top: 1px solid #e5e7eb;
-}
-
-.backButtonLink {
-  flex: 1;
-  padding: 0.75rem;
-  border-radius: 0.5rem;
-  font-weight: 500;
-  transition: background-color 0.2s;
-  background-color: #4b5563;
-  color: white;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.backButtonLink:hover {
-  background-color: #374151;
-}
-
-@media (min-width: 640px) {
-  .backButton {
-    position: static;
-    border-top: none;
-    padding: 0;
-    margin-top: 1rem;
-  }
-}
-
-.activeWorkoutBadge {
-  background-color: #059669;
-  color: white;
-  font-size: 0.75rem;
-  padding: 0.25rem 0.5rem;
-  border-radius: 1rem;
-  font-weight: 500;
-}
-
-.selectButton {
-  margin-top: 1rem;
-  width: 100%;
-  justify-content: center;
-  background-color: #4b5563;
-  color: white;
-}
-
-.selectButton:hover {
-  background-color: #374151;
 }

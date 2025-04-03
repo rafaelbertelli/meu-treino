@@ -13,7 +13,7 @@ export const workoutsStore = {
   /**
    * Get a specific workout by id
    */
-  getById: (id: number): WorkoutStoreItem | null => {
+  getById: (id: string): WorkoutStoreItem | null => {
     const workouts = workoutsStore.getAll();
     return workouts.find((workout) => workout.id === id) || null;
   },
@@ -39,7 +39,7 @@ export const workoutsStore = {
   /**
    * Remove a workout by id
    */
-  remove: (id: number): void => {
+  remove: (id: string): void => {
     const workouts = workoutsStore.getAll();
     const filteredWorkouts = workouts.filter((workout) => workout.id !== id);
     storage.set(STORAGE_KEYS.WORKOUTS, filteredWorkouts);
