@@ -77,7 +77,7 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
       <Container>
         <Header title="Treino não encontrado" />
         <ButtonGroup>
-          <Button variant="primary">
+          <Button variant="default">
             <Link
               href={{
                 pathname: "/dashboard",
@@ -112,7 +112,7 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
               min="1"
               className={styles.input}
               placeholder="Ex: 30"
-              defaultValue={workout.workoutConfig.sessions}
+              defaultValue={workout.workoutConfig.sessions || ""}
               required
             />
           </div>
@@ -127,7 +127,7 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
               name="startDate"
               className={styles.input}
               defaultValue={formatDateToInputValue(
-                workout.workoutConfig.startDate
+                workout.workoutConfig.startDate || ""
               )}
               required
             />
@@ -247,7 +247,7 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
           </div>
 
           <ButtonGroup>
-            <Button type="submit" variant="primary">
+            <Button type="submit" variant="default">
               Usar este treino
             </Button>
           </ButtonGroup>
@@ -255,7 +255,7 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
       </CardContent>
 
       <ButtonGroup>
-        <Button variant="lightGray">
+        <Button variant="outline">
           <Link
             href="/dashboard"
             prefetch={false}

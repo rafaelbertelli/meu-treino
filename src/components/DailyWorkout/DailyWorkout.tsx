@@ -10,9 +10,9 @@ export function DailyWorkout() {
     <Container>
       <Header title="Treino de Hoje" />
 
-      <Link href="/dashboard" className={styles.manageButton}>
-        Gerenciar Treinos
-      </Link>
+      <Button variant="secondary" asChild className={styles.manageButton}>
+        <Link href="/dashboard">Gerenciar Treinos</Link>
+      </Button>
 
       <div className={styles.workoutCard}>
         <h2 className={styles.subtitle}>Seu treino para hoje</h2>
@@ -24,8 +24,8 @@ export function DailyWorkout() {
       </div>
 
       <ButtonGroup fixed>
-        <Button variant="lightGray">Pular Hoje</Button>
-        <Button variant="green">Começar</Button>
+        <Button variant="outline">Pular Hoje</Button>
+        <Button variant="default">Começar</Button>
       </ButtonGroup>
     </Container>
   );

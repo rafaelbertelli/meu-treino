@@ -17,6 +17,7 @@ export interface WorkoutGroup {
 export interface WorkoutConfig {
   sessions: number | null;
   startDate: string;
+  endDate?: string;
   notes: string;
 }
 
