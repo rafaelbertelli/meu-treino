@@ -1,3 +1,4 @@
+import { SupabaseProvider } from "@/components/SupabaseProvider";
 import type { Metadata } from "next";
 import { Roboto } from "next/font/google";
 import "./globals.css";
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="pt-BR">
       <body className={`${roboto.className} antialiased`}>
-        <main className={styles.container}>{children}</main>
+        <SupabaseProvider>
+          <main className={styles.container}>{children}</main>
+        </SupabaseProvider>
       </body>
     </html>
   );

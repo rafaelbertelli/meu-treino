@@ -1,7 +1,6 @@
 "use client";
 
-import { supabase } from "@/lib/supabase/client";
-import { useRouter } from "next/navigation";
+import { useAuth } from "@/components/SupabaseProvider";
 import { Button } from "../button/Button/Button";
 import styles from "./Header.module.css";
 
@@ -10,12 +9,10 @@ interface HeaderProps {
 }
 
 export function Header({ title }: HeaderProps) {
-  const router = useRouter();
+  const { signOut } = useAuth();
 
   const handleLogout = async () => {
-    await supabase.auth.signOut();
-    router.push("/login");
-    router.refresh();
+    await signOut();
   };
 
   return (
