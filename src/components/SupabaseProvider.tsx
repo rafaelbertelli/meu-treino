@@ -1,6 +1,7 @@
 "use client";
 
 import { supabase } from "@/lib/supabase/client";
+import { ROUTE } from "@/routes";
 import { Session } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
@@ -40,7 +41,6 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
-      router.refresh();
     });
 
     // Limpar o listener ao desmontar
@@ -54,8 +54,7 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
     try {
       await supabase.auth.signOut();
       setSession(null);
-      router.push("/login");
-      router.refresh();
+      router.replace(ROUTE.LOGIN);
     } catch (error) {
       console.error("Erro ao fazer logout:", error);
     }

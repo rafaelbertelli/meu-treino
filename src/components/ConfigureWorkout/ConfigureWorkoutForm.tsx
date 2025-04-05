@@ -11,6 +11,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/Accordion/accordion";
 import { formatDateToInputValue, formatDateToISOString } from "@/lib/date";
+import { ROUTE } from "@/routes";
 import { workoutsStore } from "@/store/workouts";
 import { Button } from "../ui/button/Button/Button";
 import { ButtonGroup } from "../ui/button/ButtonGroup/ButtonGroup";
@@ -80,7 +81,7 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
           <Button variant="default">
             <Link
               href={{
-                pathname: "/dashboard",
+                pathname: ROUTE.DASHBOARD,
                 query: { error: "Treino não encontrado" },
               }}
             >
@@ -93,171 +94,176 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
   }
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Configurar Treino</CardTitle>
-        <CardDescription>{workout.name}</CardDescription>
-      </CardHeader>
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle>Configurar Treino</CardTitle>
+          <CardDescription>{workout.name}</CardDescription>
+        </CardHeader>
 
-      <CardContent>
-        <form className={styles.form} onSubmit={handleSubmit}>
-          <div className={styles.formGroup}>
-            <label htmlFor="sessions" className={styles.label}>
-              Número de Sessões
-            </label>
-            <input
-              type="number"
-              id="sessions"
-              name="sessions"
-              min="1"
-              className={styles.input}
-              placeholder="Ex: 30"
-              defaultValue={workout.workoutConfig.sessions || ""}
-              required
-            />
-          </div>
+        <CardContent>
+          <form className={styles.form} onSubmit={handleSubmit}>
+            <div className={styles.formGroup}>
+              <label htmlFor="sessions" className={styles.label}>
+                Número de Sessões
+              </label>
+              <input
+                type="number"
+                id="sessions"
+                name="sessions"
+                min="1"
+                className={styles.input}
+                placeholder="Ex: 30"
+                defaultValue={workout.workoutConfig.sessions || ""}
+                required
+              />
+            </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="startDate" className={styles.label}>
-              Data de Início
-            </label>
-            <input
-              type="date"
-              id="startDate"
-              name="startDate"
-              className={styles.input}
-              defaultValue={formatDateToInputValue(
-                workout.workoutConfig.startDate || ""
-              )}
-              required
-            />
-          </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="startDate" className={styles.label}>
+                Data de Início
+              </label>
+              <input
+                type="date"
+                id="startDate"
+                name="startDate"
+                className={styles.input}
+                defaultValue={formatDateToInputValue(
+                  workout.workoutConfig.startDate || ""
+                )}
+                required
+              />
+            </div>
 
-          <div className={styles.formGroup}>
-            <label htmlFor="notes" className={styles.label}>
-              Observações
-            </label>
-            <textarea
-              id="notes"
-              name="notes"
-              className={styles.textarea}
-              placeholder="Adicione observações sobre o treino..."
-              rows={4}
-              defaultValue={workout.workoutConfig.notes}
-            />
-          </div>
+            <div className={styles.formGroup}>
+              <label htmlFor="notes" className={styles.label}>
+                Observações
+              </label>
+              <textarea
+                id="notes"
+                name="notes"
+                className={styles.textarea}
+                placeholder="Adicione observações sobre o treino..."
+                rows={4}
+                defaultValue={workout.workoutConfig.notes}
+              />
+            </div>
 
-          <div className={styles.workoutPreview}>
-            <h3 className={styles.workoutPreviewTitle}>Treino</h3>
+            <div className={styles.workoutPreview}>
+              <h3 className={styles.workoutPreviewTitle}>Treino</h3>
 
-            <Accordion
-              type="single"
-              collapsible
-              className={styles.workoutAccordion}
-            >
-              {workout.workoutGroup.map((group, groupIndex) => (
-                <AccordionItem
-                  key={groupIndex}
-                  value={`group-${groupIndex}`}
-                  className={styles.workoutAccordionItem}
-                >
-                  <AccordionTrigger className={styles.workoutAccordionTrigger}>
-                    {group.name}
-                  </AccordionTrigger>
-                  <AccordionContent className={styles.workoutAccordionContent}>
-                    <div className={styles.exerciseList}>
-                      {group.exercises.map((exercise, exerciseIndex) => (
-                        <div key={exerciseIndex}>
-                          <div className={styles.exercise}>
-                            <div className={styles.exerciseContent}>
-                              <div className={styles.exerciseNameWrapper}>
-                                <span className={styles.exerciseName}>
-                                  {exercise.name}
-                                </span>
-                                <span className={styles.exerciseGroup}>
-                                  {exercise.group || group.name}
-                                </span>
-                              </div>
-
-                              <div className={styles.exerciseMetrics}>
-                                <div className={styles.metricItem}>
-                                  <span className={styles.metricLabel}>
-                                    SÉRIES
+              <Accordion
+                type="single"
+                collapsible
+                className={styles.workoutAccordion}
+              >
+                {workout.workoutGroup.map((group, groupIndex) => (
+                  <AccordionItem
+                    key={groupIndex}
+                    value={`group-${groupIndex}`}
+                    className={styles.workoutAccordionItem}
+                  >
+                    <AccordionTrigger
+                      className={styles.workoutAccordionTrigger}
+                    >
+                      {group.name}
+                    </AccordionTrigger>
+                    <AccordionContent
+                      className={styles.workoutAccordionContent}
+                    >
+                      <div className={styles.exerciseList}>
+                        {group.exercises.map((exercise, exerciseIndex) => (
+                          <div key={exerciseIndex}>
+                            <div className={styles.exercise}>
+                              <div className={styles.exerciseContent}>
+                                <div className={styles.exerciseNameWrapper}>
+                                  <span className={styles.exerciseName}>
+                                    {exercise.name}
                                   </span>
-                                  <span className={styles.metricValue}>
-                                    {exercise.sets}
+                                  <span className={styles.exerciseGroup}>
+                                    {exercise.group || group.name}
                                   </span>
                                 </div>
-                                <div className={styles.metricItem}>
-                                  <span className={styles.metricLabel}>
-                                    REPS
-                                  </span>
-                                  <span className={styles.metricValue}>
-                                    {exercise.reps}
-                                  </span>
-                                </div>
-                                {exercise.interval && (
+
+                                <div className={styles.exerciseMetrics}>
                                   <div className={styles.metricItem}>
                                     <span className={styles.metricLabel}>
-                                      DESCANSO
+                                      SÉRIES
                                     </span>
                                     <span className={styles.metricValue}>
-                                      {exercise.interval}s
+                                      {exercise.sets}
+                                    </span>
+                                  </div>
+                                  <div className={styles.metricItem}>
+                                    <span className={styles.metricLabel}>
+                                      REPS
+                                    </span>
+                                    <span className={styles.metricValue}>
+                                      {exercise.reps}
+                                    </span>
+                                  </div>
+                                  {exercise.interval && (
+                                    <div className={styles.metricItem}>
+                                      <span className={styles.metricLabel}>
+                                        DESCANSO
+                                      </span>
+                                      <span className={styles.metricValue}>
+                                        {exercise.interval}s
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
+
+                                {exercise.observations && (
+                                  <div className={styles.exerciseObservations}>
+                                    <svg
+                                      className={styles.infoIcon}
+                                      width="16"
+                                      height="16"
+                                      viewBox="0 0 24 24"
+                                      fill="none"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      stroke="currentColor"
+                                      strokeWidth="2"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    >
+                                      <circle cx="12" cy="12" r="10" />
+                                      <path d="M12 16v-4" />
+                                      <path d="M12 8h.01" />
+                                    </svg>
+                                    <span className={styles.observationText}>
+                                      {exercise.observations}
                                     </span>
                                   </div>
                                 )}
                               </div>
-
-                              {exercise.observations && (
-                                <div className={styles.exerciseObservations}>
-                                  <svg
-                                    className={styles.infoIcon}
-                                    width="16"
-                                    height="16"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    stroke="currentColor"
-                                    strokeWidth="2"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  >
-                                    <circle cx="12" cy="12" r="10" />
-                                    <path d="M12 16v-4" />
-                                    <path d="M12 8h.01" />
-                                  </svg>
-                                  <span className={styles.observationText}>
-                                    {exercise.observations}
-                                  </span>
-                                </div>
-                              )}
                             </div>
+
+                            {exerciseIndex < group.exercises.length - 1 && (
+                              <div className={styles.exerciseDivider} />
+                            )}
                           </div>
+                        ))}
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+            </div>
 
-                          {exerciseIndex < group.exercises.length - 1 && (
-                            <div className={styles.exerciseDivider} />
-                          )}
-                        </div>
-                      ))}
-                    </div>
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-
-          <ButtonGroup>
-            <Button type="submit" variant="default">
-              Usar este treino
-            </Button>
-          </ButtonGroup>
-        </form>
-      </CardContent>
-
+            <ButtonGroup>
+              <Button type="submit" variant="default">
+                Usar este treino
+              </Button>
+            </ButtonGroup>
+          </form>
+        </CardContent>
+      </Card>
       <ButtonGroup>
         <Button variant="outline">
           <Link
-            href="/dashboard"
+            href={ROUTE.DASHBOARD}
             prefetch={false}
             replace={true}
             scroll={false}
@@ -267,6 +273,6 @@ export function ConfigureWorkoutForm({ workoutId }: ConfigureWorkoutFormProps) {
           </Link>
         </Button>
       </ButtonGroup>
-    </Card>
+    </>
   );
 }

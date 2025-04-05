@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button/Button/Button";
 import { supabase } from "@/lib/supabase/client";
-import { APP_ROUTES } from "@/routes/app-routes";
+import { ROUTE } from "@/routes";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -23,7 +23,7 @@ export default function LandingPage() {
 
         if (user) {
           // Redireciona usuários logados para página de treino do dia
-          router.push(APP_ROUTES.HOME);
+          router.replace(ROUTE.HOME);
           return;
         }
       } catch (error) {
@@ -56,7 +56,7 @@ export default function LandingPage() {
 
         <div className={styles.buttonContainer}>
           <Button asChild variant="default">
-            <Link href={APP_ROUTES.LOGIN}>Entrar</Link>
+            <Link href={ROUTE.LOGIN}>Entrar</Link>
           </Button>
         </div>
       </div>

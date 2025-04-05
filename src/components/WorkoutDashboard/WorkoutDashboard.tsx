@@ -4,7 +4,7 @@ import { workouts } from "@/data/workouts";
 import Link from "next/link";
 
 import { formatDateToLocaleBrazil } from "@/lib/date";
-import { APP_ROUTES } from "@/routes/app-routes";
+import { ROUTE } from "@/routes";
 import { STORAGE_KEYS } from "@/store/constants";
 import { storage } from "@/store/storage";
 import { WorkoutStoreItem } from "@/types/workout.types";
@@ -73,7 +73,7 @@ export function WorkoutDashboard() {
                   </div>
                   <ButtonGroup>
                     <Button asChild variant={isActive ? "default" : "outline"}>
-                      <Link href={`${APP_ROUTES.CONFIGURE}/${workout.id}`}>
+                      <Link href={`${ROUTE.CONFIGURE}/${workout.id}`}>
                         {isActive
                           ? "Editar treino em uso"
                           : "Configurar este treino"}
@@ -89,7 +89,7 @@ export function WorkoutDashboard() {
 
       <ButtonGroup>
         <Button asChild variant="outline">
-          <Link href={APP_ROUTES.HOME}>Voltar para Home</Link>
+          <Link href={ROUTE.HOME}>Voltar para Home</Link>
         </Button>
       </ButtonGroup>
     </>

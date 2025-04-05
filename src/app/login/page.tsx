@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button/Button/Button";
 import { supabase } from "@/lib/supabase/client";
-import { APP_ROUTES } from "@/routes/app-routes";
+import { ROUTE } from "@/routes";
 import { AuthError } from "@supabase/supabase-js";
 import { useRouter } from "next/navigation";
 import { FormEvent, useEffect, useState } from "react";
@@ -26,7 +26,7 @@ export default function LoginPage() {
 
         if (user) {
           // Se o usuário estiver autenticado, redireciona para a home (treino do dia)
-          router.push(APP_ROUTES.HOME);
+          router.replace(ROUTE.HOME);
           return;
         }
       } catch (error) {
@@ -61,8 +61,7 @@ export default function LoginPage() {
       }
 
       // Redireciona para a home (treino do dia)
-      router.push(APP_ROUTES.HOME);
-      router.refresh();
+      router.replace(ROUTE.HOME);
     } catch (error: unknown) {
       console.error("Erro de login:", error);
       const authError = error as AuthError;

@@ -1,9 +1,9 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
+import { PUBLIC_ROUTES, ROUTE } from "@/routes";
 import { NextResponse, type NextRequest } from "next/server";
-import { APP_ROUTES, PUBLIC_ROUTES } from "./src/routes/app-routes";
 
 // Página inicial após login bem-sucedido
-const DEFAULT_LOGGED_IN_REDIRECT = APP_ROUTES.HOME;
+const DEFAULT_LOGGED_IN_REDIRECT = ROUTE.HOME;
 
 export async function middleware(request: NextRequest) {
   try {
@@ -18,7 +18,7 @@ export async function middleware(request: NextRequest) {
         new URL(request.url).pathname
       );
       if (!isPublicRoute) {
-        return NextResponse.redirect(new URL(APP_ROUTES.LOGIN, request.url));
+        return NextResponse.redirect(new URL(ROUTE.LOGIN, request.url));
       }
       return NextResponse.next();
     }
@@ -46,7 +46,7 @@ export async function middleware(request: NextRequest) {
       console.error("Middleware: Acesso negado - Autenticação inválida", {
         error,
       });
-      return NextResponse.redirect(new URL(APP_ROUTES.LOGIN, request.url));
+      return NextResponse.redirect(new URL(ROUTE.LOGIN, request.url));
     }
 
     // Se o usuário estiver autenticado e tentando acessar a página de login ou raiz,
@@ -62,7 +62,7 @@ export async function middleware(request: NextRequest) {
   } catch (error) {
     console.error("Middleware erro crítico:", error);
     // Em caso de erro, redireciona para login por segurança
-    return NextResponse.redirect(new URL(APP_ROUTES.LOGIN, request.url));
+    return NextResponse.redirect(new URL(ROUTE.LOGIN, request.url));
   }
 }
 

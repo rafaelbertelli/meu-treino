@@ -1,6 +1,7 @@
 "use client";
 
 import { useAuth } from "@/components/SupabaseProvider";
+import { ROUTE } from "@/routes";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 
@@ -11,8 +12,7 @@ export function AuthGuard({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Se não estiver carregando e não tiver sessão, redirecionar para o login
     if (!loading && !session) {
-      router.push("/login");
-      router.refresh();
+      router.replace(ROUTE.LOGIN);
     }
   }, [session, loading, router]);
 

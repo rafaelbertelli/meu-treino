@@ -17,7 +17,6 @@ export function formatDateToISOString(date: string) {
  * formatDateToInputValue("2025-03-27T00:00:00.000Z") // "2025-03-27"
  */
 export function formatDateToInputValue(date: string) {
-  console.log(date);
   return date.split("T")[0];
 }
 
