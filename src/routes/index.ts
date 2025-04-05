@@ -12,4 +12,4 @@ export const PUBLIC_ROUTES = [
   ROUTE.LOGIN,
   "/favicon.ico",
   "/_next",
-] as const;
+];
