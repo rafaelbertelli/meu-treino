@@ -23,14 +23,10 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
     async function getSession() {
       try {
         setLoading(true);
-        console.log("Provider - Obtendo sessão");
         const { data } = await supabase.auth.getSession();
-        console.log("Provider - Resultado da sessão", {
-          hasSession: !!data.session,
-        });
         setSession(data.session);
       } catch (error) {
-        console.error("Provider - Erro ao obter sessão", error);
+        console.error("Erro ao obter sessão:", error);
       } finally {
         setLoading(false);
       }
@@ -43,19 +39,12 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
-      console.log("Provider - Estado de autenticação alterado", {
-        event: _event,
-        hasSession: !!session,
-      });
       setSession(session);
       router.refresh();
     });
 
     // Limpar o listener ao desmontar
     return () => {
-      console.log(
-        "Provider - Cancelando inscrição de mudanças de autenticação"
-      );
       subscription.unsubscribe();
     };
   }, [router]);
@@ -63,14 +52,12 @@ export function SupabaseProvider({ children }: { children: React.ReactNode }) {
   // Função para deslogar
   const signOut = async () => {
     try {
-      console.log("Provider - Fazendo logout");
       await supabase.auth.signOut();
       setSession(null);
       router.push("/login");
       router.refresh();
-      console.log("Provider - Logout concluído");
     } catch (error) {
-      console.error("Provider - Erro ao fazer logout", error);
+      console.error("Erro ao fazer logout:", error);
     }
   };
 

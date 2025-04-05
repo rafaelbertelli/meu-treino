@@ -1,63 +1,68 @@
 import { createServerSupabaseClient } from "@/lib/supabase/server";
 import { NextResponse, type NextRequest } from "next/server";
-import { PUBLIC_ROUTES } from "./src/routes/app-routes";
+import { APP_ROUTES, PUBLIC_ROUTES } from "./src/routes/app-routes";
+
+// Página inicial após login bem-sucedido
+const DEFAULT_LOGGED_IN_REDIRECT = APP_ROUTES.HOME;
 
 export async function middleware(request: NextRequest) {
   try {
-    // Log simples para depuração
-    console.log(`Middleware executando: ${request.url}`);
-
     // Verifica cookies de autenticação
     const hasCookies =
       request.cookies.has("sb-access-token") ||
       request.cookies.has("sb-refresh-token");
 
+    if (!hasCookies) {
+      // Se não tiver cookies, não está autenticado
+      const isPublicRoute = PUBLIC_ROUTES.includes(
+        new URL(request.url).pathname
+      );
+      if (!isPublicRoute) {
+        return NextResponse.redirect(new URL(APP_ROUTES.LOGIN, request.url));
+      }
+      return NextResponse.next();
+    }
+
+    // Cria cliente Supabase e verifica autenticação
     const supabase = createServerSupabaseClient();
 
-    // Verifica se o usuário está autenticado
-    const { data } = await supabase.auth.getSession();
-    const session = data.session;
+    // IMPORTANTE: Usa getUser() em vez de getSession() para maior segurança
+    // getUser() sempre valida o token com o servidor Auth do Supabase
+    const {
+      data: { user },
+      error,
+    } = await supabase.auth.getUser();
 
     // URL atual
     const currentPath = new URL(request.url).pathname;
-
-    // Log das informações principais
-    console.log(
-      `Middleware: Path=${currentPath}, Autenticado=${
-        !!session && hasCookies
-      }, Rota pública=${PUBLIC_ROUTES.includes(currentPath)}`
-    );
-
-    // Verifica se o usuário está tentando acessar uma rota pública
     const isPublicRoute = PUBLIC_ROUTES.includes(currentPath);
 
-    // Considera usuário autenticado apenas se tiver sessão válida E cookies
-    const isAuthenticated = !!session && hasCookies;
+    // Usuário autenticado deve ter user válido
+    const isAuthenticated = !!user && !error;
 
     // Se o usuário não estiver autenticado e estiver tentando acessar uma rota protegida,
     // redireciona para a página de login
     if (!isAuthenticated && !isPublicRoute) {
-      console.log(
-        `Middleware: Redirecionando para login - Não autenticado (${currentPath})`
-      );
-      return NextResponse.redirect(new URL("/login", request.url));
+      console.error("Middleware: Acesso negado - Autenticação inválida", {
+        error,
+      });
+      return NextResponse.redirect(new URL(APP_ROUTES.LOGIN, request.url));
     }
 
-    // Se o usuário estiver autenticado e tentando acessar a página de login,
-    // redireciona para a página inicial
+    // Se o usuário estiver autenticado e tentando acessar a página de login ou raiz,
+    // redireciona para a página home (treino do dia)
     if (isAuthenticated && isPublicRoute) {
-      console.log(
-        `Middleware: Redirecionando para dashboard - Já autenticado (${currentPath})`
+      return NextResponse.redirect(
+        new URL(DEFAULT_LOGGED_IN_REDIRECT, request.url)
       );
-      return NextResponse.redirect(new URL("/dashboard", request.url));
     }
 
     // Continua com a requisição
     return NextResponse.next();
   } catch (error) {
-    console.error("Middleware erro:", error);
+    console.error("Middleware erro crítico:", error);
     // Em caso de erro, redireciona para login por segurança
-    return NextResponse.redirect(new URL("/login", request.url));
+    return NextResponse.redirect(new URL(APP_ROUTES.LOGIN, request.url));
   }
 }
 

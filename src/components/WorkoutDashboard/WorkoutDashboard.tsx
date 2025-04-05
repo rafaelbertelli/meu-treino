@@ -89,7 +89,7 @@ export function WorkoutDashboard() {
 
       <ButtonGroup>
         <Button asChild variant="outline">
-          <Link href="/">Voltar para Home</Link>
+          <Link href={APP_ROUTES.HOME}>Voltar para Home</Link>
         </Button>
       </ButtonGroup>
     </>
